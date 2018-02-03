@@ -3,7 +3,7 @@
   *
   * use like this
   *
-  * line_chart.php?x=1,2,3,4,5&y[0]=1,2,3,4,5&ylabel[0]=Outside&title=Average temperature&xlabel=Hour&ylabel=Temperature
+  * line_chart.php?x=1,2,3,4,5&y[0]=1,2,3,4,5&legend[0]=Outside&title=Average temperature&xlabel=Hour&ylabel=Temperature
   *
   */
 
@@ -29,13 +29,13 @@
  {
 	$y_str_array = array(0=>"1,2,3,4,5");
  }
- if (isset($_GET['ylabel']))
+ if (isset($_GET['legend']))
  {
-	$y_label_str_array = $_GET['ylabel'];
+	$legend_str_array = $_GET['legend'];
  }
  else
  {
-	$y_label_str_array = array(0=>"Sample data");
+	$legend_str_array = array(0=>"Sample data");
  }
  if (isset($_GET['title']))
  {
@@ -57,7 +57,7 @@
  /* Create and populate the pData object */
  $MyData = new pData();  
  for ($i = 0; $i < count($y_str_array); $i++) {
-	$MyData->addPoints(explode(",", $y_str_array[$i]), $y_label_str_array[$i]);
+	$MyData->addPoints(explode(",", $y_str_array[$i]), $legend_str_array[$i]);
  }
  //$MyData->addPoints(array(3,12,15,8,5,-5),"Probe 2");
  //$MyData->addPoints(array(2,7,5,18,19,22),"Probe 3");
