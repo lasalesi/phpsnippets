@@ -1,0 +1,2 @@
+# phpsnippets
+php snippets collection
