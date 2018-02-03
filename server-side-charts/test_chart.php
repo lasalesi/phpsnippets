@@ -2,9 +2,9 @@
  /* CAT:Line chart */
 
  /* pChart library inclusions */
- include("../class/pData.class.php");
- include("../class/pDraw.class.php");
- include("../class/pImage.class.php");
+ include("./pChart/class/pData.class.php");
+ include("./pChart/class/pDraw.class.php");
+ include("./pChart/class/pImage.class.php");
 
  /* Create and populate the pData object */
  $MyData = new pData();  
