@@ -61,32 +61,39 @@
 
  /* Create and populate the pData object */
  $myData = new pData();  
- for ($i = 0; $i < count($y_str_array); $i++) {
-	$myData->addPoints(explode(",", $x_str_array[$i]), $legend_str_array[$i] + "-X");
-	$myData->addPoints(explode(",", $y_str_array[$i]), $legend_str_array[$i] + "-Y");
-	$myData->setSerieOnAxis($legend_str_array[$i] + "-Y", 1);
-	$myData->setScatterSerie($legend_str_array[$i] + "-X", $legend_str_array[$i] + "-Y", $i);
-	$myData->setScatterSerieDescription($i, $legend_str_array[$i]);
+
+ // Create the X axis and the binded series 
+ for ($i = 0; $i < count($x_str_array); $i++) {
+	$myData->addPoints(explode(",", $x_str_array[$i]), "X" . $i);
  }
- 
- $myData->setAxisXY(1,AXIS_Y);
- //$myData->setAxisUnit(1,"?");
- $myData->setAxisPosition(1,AXIS_POSITION_LEFT);
+ if (isset($xaxislabel)) {
+	$myData->setAxisName(0,$xaxislabel);
+ }
  $myData->setAxisXY(0,AXIS_X);
  $myData->setAxisPosition(0,AXIS_POSITION_BOTTOM);
 
- if (isset($xaxislabel)) {
-	$myData->setAxisName(1,$xaxislabel);
+ // Create the Y axis and the binded series 
+ for ($i = 0; $i < count($y_str_array); $i++) {
+	$myData->addPoints(explode(",", $y_str_array[$i]), "Y" . $i);
+	$myData->setSerieOnAxis("Y" . $i,1);
  }
  if (isset($yaxislabel)) {
-	$myData->setAxisName(0,$yaxislabel);
+	$myData->setAxisName(1,$yaxislabel);
  }
+ $myData->setAxisXY(1,AXIS_Y);
+ //$myData->setAxisUnit(1,"°");
+ $myData->setAxisPosition(1,AXIS_POSITION_LEFT);
 
+ // Create the 1st scatter chart binding 
+ for ($i = 0; $i < count($x_str_array); $i++) {
+	$myData->setScatterSerie("X" . $i, "Y" . $i, $i);
+	$myData->setScatterSerieDescription($i, $legend_str_array[$i]);
+	//$myData->setScatterSerieTicks(0,4); // makes a dotted line
+	//$myData->setScatterSerieColor(0,array("R"=>0,"G"=>0,"B"=>0));
+ }
+ 
  /* Create the pChart object */
  $myPicture = new pImage($width, $height, $myData);
-
- /* Turn of Antialiasing */
- $myPicture->Antialias = FALSE;
 
  /* Add a border to the picture */
  $myPicture->drawRectangle(0,0,($width - 1), ($height - 1), array("R"=>0,"G"=>0,"B"=>0));
@@ -96,10 +103,10 @@
  $myPicture->drawText(150, 35, $title, array("FontSize"=>20, "Align"=>TEXT_ALIGN_BOTTOMMIDDLE));
 
  /* Set the default font */
- $myPicture->setFontProperties(array("FontName"=>"../pChart/fonts/verdana.ttf","FontSize"=>6));
+ $myPicture->setFontProperties(array("FontName"=>"../pChart/fonts/verdana.ttf","FontSize"=>8));
 
  /* Define the chart area */
- $myPicture->setGraphArea(60,40,($width - 50), ($height - 30));
+ $myPicture->setGraphArea(60,40,($width - 50), (0.85 * $height));
 
  /* Create the Scatter chart object */
  $myScatter = new pScatter($myPicture,$myData);
@@ -108,7 +115,7 @@
  $myScatter->drawScatterScale();
 
  /* Turn on shadow computing */
- $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
+ //$myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
 
  /* Draw a scatter plot chart */
  $myScatter->drawScatterLineChart();
