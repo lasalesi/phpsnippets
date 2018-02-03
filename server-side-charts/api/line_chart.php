@@ -3,7 +3,7 @@
   *
   * use like this
   *
-  * line_chart.php?x=1,2,3,4,5&y[]=1,2,3,4,5&title=Average temperature
+  * line_chart.php?x=1,2,3,4,5&y[0]=1,2,3,4,5&ylabel[0]=Outside&title=Average temperature&xlabel=Hour&ylabel=Temperature
   *
   */
 
@@ -29,6 +29,14 @@
  {
 	$y_str_array = array(0=>"1,2,3,4,5");
  }
+ if (isset($_GET['ylabel']))
+ {
+	$y_label_str_array = $_GET['ylabel'];
+ }
+ else
+ {
+	$y_label_str_array = array(0=>"Sample data");
+ }
  if (isset($_GET['title']))
  {
 	$title = $_GET['title'];
@@ -37,16 +45,31 @@
  {
 	$title = "My awesome chart";
  }
- 
+ if (isset($_GET['xaxislabel']))
+ {
+	$xaxislabel = $_GET['xaxislabel'];
+ }
+ if (isset($_GET['yaxislabel']))
+ {
+	$yaxislabel = $_GET['yaxislabel'];
+ }
+
  /* Create and populate the pData object */
  $MyData = new pData();  
- $MyData->addPoints(explode(",", y_str_array[0]), "Probe 1");
+ for ($i = 0; $i < count($y_str_array); $i++) {
+	$MyData->addPoints(explode(",", $y_str_array[$i]), $y_label_str_array[$i]);
+ }
  //$MyData->addPoints(array(3,12,15,8,5,-5),"Probe 2");
  //$MyData->addPoints(array(2,7,5,18,19,22),"Probe 3");
  //$MyData->setSerieTicks("Probe 2",4);
  //$MyData->setSerieWeight("Probe 3",2);
- //$MyData->setAxisName(0,"Temperatures");
- $MyData->addPoints(explode(",", x_str), "Labels");
+ if (isset($xaxislabel)) {
+	$MyData->setAxisName(1,$xaxislabel);
+ }
+ if (isset($yaxislabel)) {
+	$MyData->setAxisName(0,$yaxislabel);
+ }
+ $MyData->addPoints(explode(",", $x_str), "Labels");
  $MyData->setSerieDescription("Labels","Months");
  $MyData->setAbscissa("Labels");
 
