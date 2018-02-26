@@ -172,8 +172,8 @@
  $myPicture->setFontProperties(array("FontName"=>"../pChart/fonts/verdana.ttf","FontSize"=>11));
 
  /* Write a label over the chart */
- $LabelSettings = array("Decimals"=>1,"TitleMode"=>LABEL_TITLE_BACKGROUND,"TitleR"=>255,"TitleG"=>255,"TitleB"=>255);
- $myScatter->writeScatterLabel(1,17,$LabelSettings);
+ //$LabelSettings = array("Decimals"=>1,"TitleMode"=>LABEL_TITLE_BACKGROUND,"TitleR"=>255,"TitleG"=>255,"TitleB"=>255);
+ //$myScatter->writeScatterLabel(1,17,$LabelSettings);
 
  /* ***************         Render the picture        *************** */
  $myPicture->autoOutput();
