@@ -561,7 +561,7 @@
        $ScaleHeight = $Data["Axis"][$AxisID]["ScaleMax"] - $Data["Axis"][$AxisID]["ScaleMin"];
        $Step        = $Height / $ScaleHeight;
 
-       $Result = "";
+       $Result = [];
        foreach($Values as $Key => $Value)
         {
          if ( $Value == VOID ) 
@@ -578,7 +578,7 @@
        $ScaleHeight = $Data["Axis"][$AxisID]["ScaleMax"] - $Data["Axis"][$AxisID]["ScaleMin"];
        $Step        = $Height / $ScaleHeight;
 
-       $Result = "";
+       $Result = [];
        foreach($Values as $Key => $Value)
         {
          if ( $Value == VOID ) 
@@ -635,7 +635,11 @@
      $XStep = $IconAreaWidth + 5;
      $XStep = $XSpacing;
 
-     $Boundaries = ""; $Boundaries["L"] = $X; $Boundaries["T"] = $Y; $Boundaries["R"] = 0; $Boundaries["B"] = 0; $vY = $Y; $vX = $X;
+     $Boundaries = []; 
+     $Boundaries["L"] = $X; 
+     $Boundaries["T"] = $Y; 
+     $Boundaries["R"] = 0; 
+     $Boundaries["B"] = 0; $vY = $Y; $vX = $X;
      foreach($Data["ScatterSeries"] as $Key => $Series)
       {
        if ( $Series["isDrawable"] == TRUE )
@@ -654,7 +658,7 @@
          elseif ( $Mode == LEGEND_HORIZONTAL )
           {
            $Lines = preg_split("/\n/",$Series["Description"]);
-           $Width = "";
+           $Width = [];
            foreach($Lines as $Key => $Value)
             {
              $BoxArray = $this->pChartObject->getTextBox($vX+$IconAreaWidth+6,$Y+$IconAreaHeight/2+(($this->pChartObject->FontSize+3)*$Key),$FontName,$FontSize,0,$Value);
@@ -729,7 +733,7 @@
          elseif ( $Mode == LEGEND_HORIZONTAL )
           {
            $Lines = preg_split("/\n/",$Series["Description"]);
-           $Width = "";
+           $Width = [];
            foreach($Lines as $Key => $Value)
             {
              $BoxArray = $this->pChartObject->drawText($X+$IconAreaWidth+4,$Y+$IconAreaHeight/2+(($this->pChartObject->FontSize+3)*$Key),$Value,array("R"=>$FontR,"G"=>$FontG,"B"=>$FontB,"Align"=>TEXT_ALIGN_MIDDLELEFT));
