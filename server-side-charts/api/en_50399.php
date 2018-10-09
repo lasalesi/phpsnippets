@@ -17,10 +17,10 @@
   */
 
  /* load pChart library inclusions */
- require_once("../pChart/class/pData.class.php");
- require_once("../pChart/class/pDraw.class.php");
- require_once("../pChart/class/pImage.class.php");
- require_once("../pChart/class/pScatter.class.php");
+ require_once("../pChart/pData.php");
+ require_once("../pChart/pDraw.php");
+ // require_once("../pChart/class/pImage.class.php");
+ require_once("../pChart/pScatter.php");
  
  /* constants */
  $width = 700;
