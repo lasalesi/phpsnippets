@@ -89,20 +89,20 @@
  
  /* ************** Create and populate the pData object ************* */
  $myData = new pData();  
-
- // Create the bin 
- $myData->addPoints(explode(",", $x_str_array[0]), "Labels");
-
+ 
  // Create the histogram 
  for ($i = 0; $i < count($y_str_array); $i++) {
 	$myData->addPoints(explode(",", $y_str_array[$i]), $legend_str_array[$i]);
  }
 
  // add y axis name
- $MyData->setAxisName(0, $yaxislabel); 
- $MyData->setSerieDescription("Labels", $xaxislabel);
- $MyData->setAbscissa("Labels");
-
+ $myData->setAxisName(0, $yaxislabel); 
+ 
+ // Create the bin 
+ $myData->addPoints(explode(",", $x_str_array[0]), "Labels");
+ $myData->setSerieDescription("Labels", $xaxislabel);
+ $myData->setAbscissa("Labels");
+ 
  /* ***************     Create the pChart object     *************** */
  $myPicture = new pImage($width, $height, $myData);
 
@@ -110,8 +110,8 @@
  $myPicture->drawRectangle(0,0,($width - 1), ($height - 1), array("R"=>0,"G"=>0,"B"=>0));
  
  /* Write the chart title */ 
- $myPicture->setFontProperties(array("FontName"=>"../pChart/fonts/verdana.ttf", "FontSize"=>11));
- $myPicture->drawText(50, 35, $title, array("FontSize"=>20, "Align"=>TEXT_ALIGN_BOTTOMLEFT));
+ $myPicture->setFontProperties(array("FontName"=>"../pChart/fonts/verdana.ttf", "FontSize"=>10));
+ $myPicture->drawText(($width / 2), 10, $title, array("FontSize"=>12, "Align"=>TEXT_ALIGN_TOPMIDDLE));
  
  /* Set the default font */
  $myPicture->setFontProperties(array("FontName"=>"../pChart/fonts/verdana.ttf","FontSize"=>8));
@@ -119,43 +119,19 @@
  /* Define the chart area */
  $myPicture->setGraphArea(60,40,($width - 50), (0.85 * $height));
 
- /* Create the Scatter chart object */
- $myScatter = new pScatter($myPicture,$myData);
-
- /* manually scale the chart */
- $AxisBoundaries = array(
-	0=>array("Min"=>$scale_min_x,"Max"=>$scale_max_x),
-	1=>array("Min"=>$scale_min_y,"Max"=>$scale_max_y)
- );
- $ScaleSettings = array(
-    "XMargin"=>15,
-    "YMargin"=>15,
-    "Floating"=>TRUE,
-    "GridR"=>200,
-    "GridG"=>200,
-    "GridB"=>200,
-    "DrawSubTicks"=>FALSE,
-    "CycleBackground"=>TRUE,
-    "Mode"=>SCALE_MODE_MANUAL,
-	"ManualScale"=>$AxisBoundaries
- );
- $myScatter->drawScatterScale($ScaleSettings); 
+ // define scale
+ $myPicture->drawScale(array("CycleBackground"=>TRUE,"DrawSubTicks"=>FALSE,"GridR"=>0,"GridG"=>0,"GridB"=>0,"GridAlpha"=>10));
  
- /* Turn on shadow computing */
  $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
+ 
+ // define settings
+ $settings = array("Gradient"=>TRUE, "DisplayPos"=>LABEL_POS_INSIDE, "DisplayValues"=>FALSE, "DisplayR"=>255, "DisplayG"=>255, "DisplayB"=>255, "DisplayShadow"=>TRUE, "Surrounding"=>30);
 
- /* Draw a scatter plot chart */
- $myScatter->drawScatterLineChart();
-
- /* Draw the legend */
- $myScatter->drawScatterLegend(($width - 200), ($height - 20), array("Mode"=>LEGEND_HORIZONTAL,"Style"=>LEGEND_NOBORDER));
-
- /* Set the default font */
- $myPicture->setFontProperties(array("FontName"=>"../pChart/fonts/verdana.ttf","FontSize"=>11));
-
- /* Write a label over the chart */
- //$LabelSettings = array("Decimals"=>1,"TitleMode"=>LABEL_TITLE_BACKGROUND,"TitleR"=>255,"TitleG"=>255,"TitleB"=>255);
- //$myScatter->writeScatterLabel(1,17,$LabelSettings);
-
+ // hack: x-axis label no longer works, hard-override
+  $myPicture->drawText(($width / 2), ($height - 30), $xaxislabel, array("FontSize"=>8, "Align"=>TEXT_ALIGN_TOPMIDDLE));
+ 
+ // draw chart
+ $myPicture->drawBarChart($settings);
+ 
  /* ***************         Render the picture        *************** */
  $myPicture->autoOutput();
