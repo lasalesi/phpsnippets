@@ -103,6 +103,9 @@
  $myData->setSerieDescription("Labels", $xaxislabel);
  $myData->setAbscissa("Labels");
  
+ $myData->addPoints(array(0,0,0,0,0,0,0,0,0), "Floating 0");
+ $myData->setSerieDrawable("Floating 0", FALSE);
+ 
  /* ***************     Create the pChart object     *************** */
  $myPicture = new pImage($width, $height, $myData);
 
@@ -118,14 +121,28 @@
 
  /* Define the chart area */
  $myPicture->setGraphArea(60,40,($width - 50), (0.85 * $height));
-
+ 
  // define scale
- $myPicture->drawScale(array("CycleBackground"=>TRUE,"DrawSubTicks"=>FALSE,"GridR"=>0,"GridG"=>0,"GridB"=>0,"GridAlpha"=>10));
+ $myPicture->drawScale(array("CycleBackground"=>TRUE,
+ 	"DrawSubTicks"=>FALSE,
+ 	"GridR"=>0,
+ 	"GridG"=>0,
+ 	"GridB"=>0,
+ 	"GridAlpha"=>10,
+ 	"Mode"=>SCALE_MODE_START0));
  
  $myPicture->setShadow(TRUE,array("X"=>1,"Y"=>1,"R"=>0,"G"=>0,"B"=>0,"Alpha"=>10));
  
  // define settings
- $settings = array("Gradient"=>TRUE, "DisplayPos"=>LABEL_POS_INSIDE, "DisplayValues"=>FALSE, "DisplayR"=>255, "DisplayG"=>255, "DisplayB"=>255, "DisplayShadow"=>TRUE, "Surrounding"=>30);
+ $settings = array("Gradient"=>TRUE, 
+ 	"DisplayPos"=>LABEL_POS_INSIDE, 
+ 	"DisplayValues"=>FALSE, 
+ 	"DisplayR"=>255, 
+ 	"DisplayG"=>255, 
+ 	"DisplayB"=>255, 
+ 	"DisplayShadow"=>TRUE, 
+ 	"Surrounding"=>30
+ );
 
  // hack: x-axis label no longer works, hard-override
   $myPicture->drawText(($width / 2), ($height - 30), $xaxislabel, array("FontSize"=>8, "Align"=>TEXT_ALIGN_TOPMIDDLE));
