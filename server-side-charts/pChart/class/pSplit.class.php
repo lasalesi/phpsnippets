@@ -19,10 +19,10 @@
  /* pSplit class definition */
  class pSplit
   {
-   var $pChartObject;
+   public $pChartObject;
 
    /* Class creator */
-   function pSplit()
+   function __construct()
     { }
 
    /* Create the encoded string */

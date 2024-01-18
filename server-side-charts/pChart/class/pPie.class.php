@@ -31,12 +31,12 @@
  /* pPie class definition */
  class pPie
   {
-   var $pChartObject;
-   var $pDataObject;
-   var $LabelPos = "" ;
+   public $pChartObject;
+   public $pDataObject;
+   public $LabelPos = "" ;
 
    /* Class creator */
-   function pPie($Object,$pDataObject)
+   function __construct($Object,$pDataObject)
     {
      /* Cache the pChart object reference */
      $this->pChartObject = $Object;

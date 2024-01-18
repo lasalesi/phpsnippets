@@ -16,14 +16,14 @@
  /* pData class definition */
  class pBarcode128
   {
-   var $Codes;
-   var $Reverse;
-   var $Result;
-   var $pChartObject;
-   var $CRC;
+   public $Codes;
+   public $Reverse;
+   public $Result;
+   public $pChartObject;
+   public $CRC;
 
    /* Class creator */
-   function pBarcode128($BasePath="")
+   function __construct($BasePath="")
     {
      $this->Codes   = "";
      $this->Reverse = "";

@@ -24,13 +24,13 @@
  /* pStock class definition */
  class pSurface
   {
-   var $pChartObject;
-   var $GridSizeX;
-   var $GridSizeY;
-   var $Points;
+   public $pChartObject;
+   public $GridSizeX;
+   public $GridSizeY;
+   public $Points;
 
    /* Class creator */
-   function pSurface($pChartObject)
+   function __construct($pChartObject)
     {
      $this->pChartObject = $pChartObject;
      $this->GridSize     = 10;

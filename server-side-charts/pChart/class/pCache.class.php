@@ -16,12 +16,12 @@
  /* pData class definition */
  class pCache
   {
-   var $CacheFolder;
-   var $CacheIndex;
-   var $CacheDB;
+   public $CacheFolder;
+   public $CacheIndex;
+   public $CacheDB;
 
    /* Class creator */
-   function pCache($Settings="")
+   function __construct($Settings="")
     {
      $CacheFolder	= isset($Settings["CacheFolder"]) ? $Settings["CacheFolder"] : "cache";
      $CacheIndex	= isset($Settings["CacheIndex"]) ? $Settings["CacheIndex"] : "index.db";

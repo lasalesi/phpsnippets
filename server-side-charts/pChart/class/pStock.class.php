@@ -18,11 +18,11 @@
  /* pStock class definition */
  class pStock
   {
-   var $pChartObject;
-   var $pDataObject;
+   public $pChartObject;
+   public $pDataObject;
 
    /* Class creator */
-   function pStock($pChartObject,$pDataObject)
+   function __construct($pChartObject,$pDataObject)
     {
      $this->pChartObject = $pChartObject;
      $this->pDataObject  = $pDataObject;
