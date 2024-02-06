@@ -528,16 +528,16 @@
    function loadPalette($FileName,$Overwrite=FALSE)
     {
      if ( !file_exists($FileName) ) { return(-1); }
-     if ( $Overwrite ) { $this->Palette = ""; }
+     if ( $Overwrite ) { $this->Palette = []; }
 
      $fileHandle = @fopen($FileName, "r");
      if (!$fileHandle) { return(-1); }
      while (!feof($fileHandle))
       {
        $buffer = fgets($fileHandle, 4096);
-       if ( preg_match("/,/",$buffer) )
+       if (strpos($buffer, ',') !== false) //used to be preg_match()
         {
-         list($R,$G,$B,$Alpha) = preg_split("/,/",$buffer);
+         list($R,$G,$B,$Alpha) = explode(",",$buffer); //used to be preg_split()
          if ( $this->Palette == "" ) { $ID = 0; } else { $ID = count($this->Palette); }
          $this->Palette[$ID] = array("R"=>$R,"G"=>$G,"B"=>$B,"Alpha"=>$Alpha);
         }
@@ -712,10 +712,10 @@
 
      if ( $Formula == "" ) { return(0); }
 
-     $Result = ""; $Abscissa = "";
+     $Result = []; $Abscissa = [];
      for($i=$MinX; $i<=$MaxX; $i=$i+$XStep)
       {
-       $Expression = "\$return = '!'.(".str_replace("z",$i,$Formula).");";
+        $Expression = "\$return = '!'.($i != 0 ? ".str_replace("z",$i,$Formula)." : VOID);";
        if ( @eval($Expression) === FALSE ) { $return = VOID; }
        if ( $return == "!" ) { $return = VOID; } else { $return = $this->right($return,strlen($return)-1); }
        if ( $return == "NAN" ) { $return = VOID; }

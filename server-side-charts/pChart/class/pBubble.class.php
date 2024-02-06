@@ -36,7 +36,7 @@
      if ( !is_array($WeightSeries) )	{ $WeightSeries = array($WeightSeries); }
 
      /* Parse each data series to find the new min & max boundaries to scale */
-     $NewPositiveSerie = ""; $NewNegativeSerie = ""; $MaxValues = 0; $LastPositive = 0; $LastNegative = 0;
+     $NewPositiveSerie = []; $NewNegativeSerie = []; $MaxValues = 0; $LastPositive = 0; $LastNegative = 0;
      foreach($DataSeries as $Key => $SerieName)
       {
        $SerieWeightName = $WeightSeries[$Key];

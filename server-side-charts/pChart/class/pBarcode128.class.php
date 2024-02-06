@@ -25,8 +25,8 @@
    /* Class creator */
    function __construct($BasePath="")
     {
-     $this->Codes   = "";
-     $this->Reverse = "";
+     $this->Codes   = [];
+     $this->Reverse = [];
 
      $FileHandle = @fopen($BasePath."data/128B.db", "r");
 
@@ -37,7 +37,7 @@
        $Buffer = fgets($FileHandle,4096);
        $Buffer = str_replace(chr(10),"",$Buffer);
        $Buffer = str_replace(chr(13),"",$Buffer);
-       $Values = preg_split("/;/",$Buffer);
+       $Values = explode(";",$Buffer); //used to be preg_split()
 
        $this->Codes[$Values[1]]["ID"]     = $Values[0];
        $this->Codes[$Values[1]]["Code"]   = $Values[2];

@@ -27,7 +27,7 @@
    function __construct($BasePath="",$EnableMOD43=FALSE)
     {
      $this->MOD43  = $EnableMOD43;
-     $this->Codes   = "";
+     $this->Codes   = [];
      $this->Reverse = "";
 
      $FileHandle = @fopen($BasePath."data/39.db", "r");
@@ -39,7 +39,7 @@
        $Buffer = fgets($FileHandle,4096);
        $Buffer = str_replace(chr(10),"",$Buffer);
        $Buffer = str_replace(chr(13),"",$Buffer);
-       $Values = preg_split("/;/",$Buffer);
+       $Values = explode(";",$Buffer); //used to be preg_split()
 
        $this->Codes[$Values[0]] = $Values[1];
       }

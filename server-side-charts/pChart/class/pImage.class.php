@@ -255,8 +255,8 @@
    /* Returns the 1st decimal values (used to correct AA bugs) */
    function getFirstDecimal($Value)
     {
-     $Values = preg_split("/\./",$Value);
-     if ( isset($Values[1]) ) { return(substr($Values[1],0,1)); } else { return(0); }
+      $Values = explode(".", $Value); //used to be preg_string()
+      if ( isset($Values[1]) ) { return(substr($Values[1],0,1)); } else { return(0); }
     }
 
    /* Attach a dataset to your pChart Object */
@@ -445,7 +445,7 @@
    /* Reverse an array of points */
    function reversePlots($Plots)
     {
-     $Result = "";
+     $Result = [];
      for($i=count($Plots)-2;$i>=0;$i=$i-2) { $Result[] = $Plots[$i]; $Result[] = $Plots[$i+1]; }
      return($Result);
     }

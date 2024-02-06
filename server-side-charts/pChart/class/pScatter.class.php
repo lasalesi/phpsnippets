@@ -652,12 +652,12 @@
            if ( $Boundaries["R"] < $BoxArray[1]["X"]+2 ) { $Boundaries["R"] = $BoxArray[1]["X"]+2; }
            if ( $Boundaries["B"] < $BoxArray[1]["Y"]+2+$IconAreaHeight/2 ) { $Boundaries["B"] = $BoxArray[1]["Y"]+2+$IconAreaHeight/2; }
 
-           $Lines = preg_split("/\n/",$Series["Description"]);
+           $Lines = explode("\n",$Series["Description"]); //used to be preg_split()
            $vY = $vY + max($this->pChartObject->FontSize*count($Lines),$IconAreaHeight) + 5;
           }
          elseif ( $Mode == LEGEND_HORIZONTAL )
           {
-           $Lines = preg_split("/\n/",$Series["Description"]);
+            $Lines = explode("\n",$Series["Description"]); //used to be preg_split()
            $Width = [];
            foreach($Lines as $Key => $Value)
             {
@@ -724,16 +724,16 @@
 
          if ( $Mode == LEGEND_VERTICAL )
           {
-           $Lines = preg_split("/\n/",$Series["Description"]);
-           foreach($Lines as $Key => $Value)
+            $Lines = explode("\n",$Series["Description"]); //used to be preg_split()
+            foreach($Lines as $Key => $Value)
             $this->pChartObject->drawText($X+$IconAreaWidth+4,$Y+$IconAreaHeight/2+(($this->pChartObject->FontSize+3)*$Key),$Value,array("R"=>$FontR,"G"=>$FontG,"B"=>$FontB,"Align"=>TEXT_ALIGN_MIDDLELEFT));
 
            $Y=$Y+max($this->pChartObject->FontSize*count($Lines),$IconAreaHeight) + 5;
           }
          elseif ( $Mode == LEGEND_HORIZONTAL )
           {
-           $Lines = preg_split("/\n/",$Series["Description"]);
-           $Width = [];
+            $Lines = explode("\n",$Series["Description"]); //used to be preg_split()
+            $Width = [];
            foreach($Lines as $Key => $Value)
             {
              $BoxArray = $this->pChartObject->drawText($X+$IconAreaWidth+4,$Y+$IconAreaHeight/2+(($this->pChartObject->FontSize+3)*$Key),$Value,array("R"=>$FontR,"G"=>$FontG,"B"=>$FontB,"Align"=>TEXT_ALIGN_MIDDLELEFT));
@@ -785,19 +785,20 @@
         {
          if ( $Mode == LEGEND_VERTICAL )
           {
+            var_dump($Series["Description"]);
            $BoxArray = $this->pChartObject->getTextBox($vX+$IconAreaWidth+4,$vY+$IconAreaHeight/2,$FontName,$FontSize,0,$Series["Description"]);
 
            if ( $Boundaries["T"] > $BoxArray[2]["Y"]+$IconAreaHeight/2 ) { $Boundaries["T"] = $BoxArray[2]["Y"]+$IconAreaHeight/2; }
            if ( $Boundaries["R"] < $BoxArray[1]["X"]+2 ) { $Boundaries["R"] = $BoxArray[1]["X"]+2; }
            if ( $Boundaries["B"] < $BoxArray[1]["Y"]+2+$IconAreaHeight/2 ) { $Boundaries["B"] = $BoxArray[1]["Y"]+2+$IconAreaHeight/2; }
 
-           $Lines = preg_split("/\n/",$Series["Description"]);
+           $Lines = explode("\n",$Series["Description"]); //used to be preg_split()
            $vY = $vY + max($this->pChartObject->FontSize*count($Lines),$IconAreaHeight) + 5;
           }
          elseif ( $Mode == LEGEND_HORIZONTAL )
           {
-           $Lines = preg_split("/\n/",$Series["Description"]);
-           $Width = "";
+            $Lines = explode("\n",$Series["Description"]); //used to be preg_split()
+            $Width = "";
            foreach($Lines as $Key => $Value)
             {
              $BoxArray = $this->pChartObject->getTextBox($vX+$IconAreaWidth+6,$Y+$IconAreaHeight/2+(($this->pChartObject->FontSize+3)*$Key),$FontName,$FontSize,0,$Value);
