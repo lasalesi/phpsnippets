@@ -46,7 +46,7 @@
     }
 
    /* Draw a pie chart */
-   function draw2DPie($X,$Y,$Format="")
+   function draw2DPie($X,$Y,$Format=[])
     {
      $Radius		= isset($Format["Radius"]) ? $Format["Radius"] : 60;
      $Precision		= isset($Format["Precision"]) ? $Format["Precision"] : 0;
@@ -296,7 +296,7 @@
     }
 
    /* Draw a 3D pie chart */
-   function draw3DPie($X,$Y,$Format="")
+   function draw3DPie($X,$Y,$Format=[])
     {
      /* Rendering layout */
      $Radius		= isset($Format["Radius"]) ? $Format["Radius"] : 80;
@@ -697,7 +697,7 @@
     }
 
    /* Draw the legend of pie chart */
-   function drawPieLegend($X,$Y,$Format="")
+   function drawPieLegend($X,$Y,$Format=[])
     {
      $FontName		= isset($Format["FontName"]) ? $Format["FontName"] : $this->pChartObject->FontName;
      $FontSize		= isset($Format["FontSize"]) ? $Format["FontSize"] : $this->pChartObject->FontSize;
@@ -782,7 +782,7 @@
     }
 
    /* Set the color of the specified slice */
-   function setSliceColor($SliceID,$Format="")
+   function setSliceColor($SliceID,$Format=[])
     {
      $R		= isset($Format["R"]) ? $Format["R"] : 0;
      $G		= isset($Format["G"]) ? $Format["G"] : 0;
@@ -820,7 +820,7 @@
        $YTop    = $Y2 - $Height/2 - 2;
        $YBottom = $Y2 + $Height/2 + 2;
 
-       if ( $this->LabelPos != "" )
+       if ( $this->LabelPos != [] )
         {
          $Done = FALSE;
          foreach($this->LabelPos as $Key => $Settings)
@@ -883,7 +883,7 @@
     }
 
    /* Draw a ring chart */
-   function draw2DRing($X,$Y,$Format="")
+   function draw2DRing($X,$Y,$Format=[])
     {
      $OuterRadius	= isset($Format["Radius"]) ? $Format["Radius"] : 60;
      $Precision		= isset($Format["Precision"]) ? $Format["Precision"] : 0;
@@ -1091,7 +1091,7 @@
     }
 
    /* Draw a 3D ring chart */
-   function draw3DRing($X,$Y,$Format="")
+   function draw3DRing($X,$Y,$Format=[])
     {
      $OuterRadius	= isset($Format["OuterRadius"]) ? $Format["OuterRadius"] : 100;
      $Precision		= isset($Format["Precision"]) ? $Format["Precision"] : 0;
@@ -1302,7 +1302,7 @@
           }
         }
 
-       if ( $InnerPlotsA != "" )
+       if ( $InnerPlotsA != [] )
         { $InnerPlots = array_merge($InnerPlotsA,$this->arrayReverse($InnerPlotsB)); $this->pChartObject->drawPolygon($InnerPlots,$Settings); }
       }
 
@@ -1370,7 +1370,7 @@
        $Settings["R"] = $Settings["R"]+$Cf; $Settings["G"] = $Settings["G"]+$Cf; $Settings["B"] = $Settings["B"]+$Cf;
 
        $Outer = TRUE; $Inner = FALSE;
-       $OuterPlotsA = []; $OuterPlotsB = []; $InnerPlotsA = ""; $InnerPlotsB = "";
+       $OuterPlotsA = []; $OuterPlotsB = []; $InnerPlotsA = []; $InnerPlotsB = [];
        foreach($Plots["Angle"] as $ID => $Angle)
         {
          if ( $Angle == VOID )
@@ -1387,7 +1387,7 @@
             }
           }
         }
-       if ( $OuterPlotsA != "" )
+       if ( $OuterPlotsA != [] )
         { $OuterPlots = array_merge($OuterPlotsA,$this->arrayReverse($OuterPlotsB)); $this->pChartObject->drawPolygon($OuterPlots,$Settings); }
       }
 

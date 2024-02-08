@@ -379,7 +379,7 @@
     }
 
    /* Add random values to a given serie */
-   function addRandomValues($SerieName="Serie1",$Options="")
+   function addRandomValues($SerieName="Serie1",$Options=[])
     {
      $Values    = isset($Options["Values"]) ? $Options["Values"] : 20;
      $Min       = isset($Options["Min"]) ? $Options["Min"] : 0;
@@ -488,7 +488,7 @@
     {
      if ( !isset($this->Data["Series"][$Serie]) ) { return(NULL); }
 
-     $Result = "";
+     $Result = [];
      $Result["R"] = $this->Data["Series"][$Serie]["Color"]["R"];
      $Result["G"] = $this->Data["Series"][$Serie]["Color"]["G"];
      $Result["B"] = $this->Data["Series"][$Serie]["Color"]["B"];
@@ -538,7 +538,7 @@
        if (strpos($buffer, ',') !== false) //used to be preg_match()
         {
          list($R,$G,$B,$Alpha) = explode(",",$buffer); //used to be preg_split()
-         if ( $this->Palette == "" ) { $ID = 0; } else { $ID = count($this->Palette); }
+         if ( $this->Palette == [] ) { $ID = 0; } else { $ID = count($this->Palette); }
          $this->Palette[$ID] = array("R"=>$R,"G"=>$G,"B"=>$B,"Alpha"=>$Alpha);
         }
       }
@@ -611,7 +611,7 @@
     {
      $Abscissa = $this->Data["Abscissa"];
 
-     $SelectedSeries = "";
+     $SelectedSeries = [];
      $MaxVal         = 0;
      foreach($this->Data["Axis"] as $AxisID => $Axis)
       {
@@ -664,7 +664,7 @@
     }
 
    /* Load data from a CSV (or similar) data source */
-   function importFromCSV($FileName,$Options="")
+   function importFromCSV($FileName,$Options=[])
     {
      $Delimiter		= isset($Options["Delimiter"]) ? $Options["Delimiter"] : ",";
      $GotHeader		= isset($Options["GotHeader"]) ? $Options["GotHeader"] : FALSE;
@@ -674,7 +674,7 @@
      $Handle = @fopen($FileName,"r");
      if ($Handle)
       {
-       $HeaderParsed = FALSE; $SerieNames = "";
+       $HeaderParsed = FALSE; $SerieNames = [];
        while (!feof($Handle))
         {
          $Buffer = fgets($Handle, 4096);
@@ -691,7 +691,7 @@
             }
            else
             {
-             if ($SerieNames == "" ) { foreach($Values as $Key => $Name) {  if ( !in_array($Key,$SkipColumns) ) { $SerieNames[$Key] = $DefaultSerieName.$Key; } } }
+             if ($SerieNames == [] ) { foreach($Values as $Key => $Name) {  if ( !in_array($Key,$SkipColumns) ) { $SerieNames[$Key] = $DefaultSerieName.$Key; } } }
              foreach($Values as $Key => $Value) {  if ( !in_array($Key,$SkipColumns) ) { $this->addPoints($Value,$SerieNames[$Key]); } }
             }
           }
@@ -701,7 +701,7 @@
     }
 
    /* Create a dataset based on a formula */
-   function createFunctionSerie($SerieName,$Formula="",$Options="")
+   function createFunctionSerie($SerieName,$Formula="",$Options=[])
     {
      $MinX		= isset($Options["MinX"]) ? $Options["MinX"] : -10;
      $MaxX		= isset($Options["MaxX"]) ? $Options["MaxX"] : 10;
@@ -738,7 +738,7 @@
       {
        if (isset($this->Data["Series"][$SerieName]))
         {
-         $Data = "";
+         $Data = [];
          foreach($this->Data["Series"][$SerieName]["Data"] as $Key => $Value)
           { if ( $Value == VOID ) { $Data[] = VOID; } else { $Data[] = -$Value; } }
          $this->Data["Series"][$SerieName]["Data"] = $Data;

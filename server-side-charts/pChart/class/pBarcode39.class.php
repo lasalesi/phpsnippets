@@ -47,7 +47,7 @@
     }
 
    /* Return the projected size of a barcode */
-   function getSize($TextString,$Format="")
+   function getSize($TextString,$Format=[])
     {
      $Angle		= isset($Format["Angle"]) ? $Format["Angle"] : 0;
      $ShowLegend	= isset($Format["ShowLegend"]) ? $Format["ShowLegend"] : FALSE;
@@ -105,7 +105,7 @@
     }
 
    /* Create the encoded string */
-   function draw($Object,$Value,$X,$Y,$Format="")
+   function draw($Object,$Value,$X,$Y,$Format=[])
     {
      $this->pChartObject = $Object;
 

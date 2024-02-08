@@ -107,7 +107,7 @@
     }
 
    /* Enable / Disable and set shadow properties */
-   function setShadow($Enabled=TRUE,$Format="")
+   function setShadow($Enabled=TRUE,$Format=[])
     {
      $X	    = isset($Format["X"]) ? $Format["X"] : 2;
      $Y	    = isset($Format["Y"]) ? $Format["Y"] : 2;
@@ -130,7 +130,7 @@
     {
      if ( $X2 < $X1 || $X1 == $X2 || $Y2 < $Y1 || $Y1 == $Y2 ) { return(-1); }
 
-     $this->GraphAreaX1 = $X1; $this->DataSet->Data["GraphArea"]["X1"] = $X1;
+     $this->GraphAreaX1 = $X1; $this->DataSet->Data["GraphArea"]["X1"] = $X1; //huere is a problem
      $this->GraphAreaY1 = $Y1; $this->DataSet->Data["GraphArea"]["Y1"] = $Y1;
      $this->GraphAreaX2 = $X2; $this->DataSet->Data["GraphArea"]["X2"] = $X2;
      $this->GraphAreaY2 = $Y2; $this->DataSet->Data["GraphArea"]["Y2"] = $Y2;
@@ -231,7 +231,7 @@
     }
 
    /* Set current font properties */
-   function setFontProperties($Format="")
+   function setFontProperties($Format=[])
     {
      $R		= isset($Format["R"]) ? $Format["R"] : -1;
      $G		= isset($Format["G"]) ? $Format["G"] : -1;
@@ -320,7 +320,7 @@
     {
      if ( !isset($this->DataSet->Data["Series"][$SerieName]) ) { return(-1); }
 
-     $Result = "";
+     $Result = [];
      foreach($this->DataSet->Data["Series"][$SerieName]["Data"] as $Key => $Value)
       { if ( $Value != VOID && isset($Values[$Key]) ) { $Result[] = $Values[$Key]; } }
      return($Result);
@@ -343,7 +343,7 @@
       }
      elseif( $this->ImageMapStorageMode == IMAGE_MAP_STORAGE_FILE )
       {
-       $TempArray = "";
+       $TempArray = [];
        $Handle    = @fopen($this->ImageMapStorageFolder."/".$this->ImageMapFileName.".map", "r");
        if ($Handle)
         {
@@ -381,7 +381,7 @@
       }
      elseif( $this->ImageMapStorageMode == IMAGE_MAP_STORAGE_FILE )
       {
-       $TempArray = "";
+       $TempArray = [];
        $Handle    = @fopen($this->ImageMapStorageFolder."/".$this->ImageMapFileName.".map", "r");
        if ($Handle)
         {
@@ -451,7 +451,7 @@
     }
 
    /* Mirror Effect */
-   function drawAreaMirror($X,$Y,$Width,$Height,$Format="")
+   function drawAreaMirror($X,$Y,$Width,$Height,$Format=[])
     {
      $StartAlpha	= isset($Format["StartAlpha"]) ? $Format["StartAlpha"] : 80;
      $EndAlpha		= isset($Format["EndAlpha"]) ? $Format["EndAlpha"] : 0;
