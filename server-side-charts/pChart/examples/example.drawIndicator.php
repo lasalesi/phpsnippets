@@ -12,7 +12,7 @@
  $MyData->addPoints(array(4,12,15,8,5,-5),"Probe 1");
  $MyData->addPoints(array(7,2,4,14,8,3),"Probe 2");
  $MyData->setAxisName(0,"Temperatures");
- $MyData->setAxisUnit(0,"°C");
+ $MyData->setAxisUnit(0,"ï¿½C");
  $MyData->addPoints(array("Jan","Feb","Mar","Apr","May","Jun"),"Labels");
  $MyData->setSerieDescription("Labels","Months");
  $MyData->setAbscissa("Labels");
@@ -42,7 +42,7 @@
  $myPicture->setFontProperties(array("FontName"=>"../fonts/pf_arma_five.ttf","FontSize"=>6));
 
  /* Define the indicator sections */
- $IndicatorSections   = "";
+ $IndicatorSections   = [];
  $IndicatorSections[] = array("Start"=>0,"End"=>199,"Caption"=>"Low","R"=>0,"G"=>142,"B"=>176);
  $IndicatorSections[] = array("Start"=>200,"End"=>239,"Caption"=>"Moderate","R"=>108,"G"=>157,"B"=>49);
  $IndicatorSections[] = array("Start"=>240,"End"=>300,"Caption"=>"High","R"=>157,"G"=>140,"B"=>49);
@@ -52,7 +52,7 @@
  $Indicator->draw(80,50,550,50,$IndicatorSettings);
 
  /* Define the indicator sections */
- $IndicatorSections   = "";
+ $IndicatorSections   = [];
  $IndicatorSections[] = array("Start"=>0,"End"=>99,"Caption"=>"Low","R"=>135,"G"=>49,"B"=>15);
  $IndicatorSections[] = array("Start"=>100,"End"=>119,"Caption"=>"Borderline","R"=>183,"G"=>62,"B"=>15);
  $IndicatorSections[] = array("Start"=>120,"End"=>220,"Caption"=>"High","R"=>226,"G"=>74,"B"=>14);

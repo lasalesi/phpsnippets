@@ -34,55 +34,55 @@
  class pImage extends pDraw
   {
    /* Image settings, size, quality, .. */
-   var $XSize		= NULL;				// Width of the picture
-   var $YSize		= NULL;				// Height of the picture
-   var $Picture		= NULL;				// GD picture object
-   var $Antialias	= TRUE;				// Turn antialias on or off
-   var $AntialiasQuality  = 0;				// Quality of the antialiasing implementation (0-1)
-   var $Mask		= "";				// Already drawn pixels mask (Filled circle implementation)
-   var $TransparentBackground = FALSE;			// Just to know if we need to flush the alpha channels when rendering
+   public $XSize		= NULL;				// Width of the picture
+   public $YSize		= NULL;				// Height of the picture
+   public $Picture		= NULL;				// GD picture object
+   public $Antialias	= TRUE;				// Turn antialias on or off
+   public $AntialiasQuality  = 0;				// Quality of the antialiasing implementation (0-1)
+   public $Mask		= "";				// Already drawn pixels mask (Filled circle implementation)
+   public $TransparentBackground = FALSE;			// Just to know if we need to flush the alpha channels when rendering
 
    /* Graph area settings */
-   var $GraphAreaX1	= NULL;				// Graph area X origin
-   var $GraphAreaY1	= NULL;				// Graph area Y origin
-   var $GraphAreaX2	= NULL;				// Graph area bottom right X position
-   var $GraphAreaY2	= NULL;				// Graph area bottom right Y position
+   public $GraphAreaX1	= NULL;				// Graph area X origin
+   public $GraphAreaY1	= NULL;				// Graph area Y origin
+   public $GraphAreaX2	= NULL;				// Graph area bottom right X position
+   public $GraphAreaY2	= NULL;				// Graph area bottom right Y position
 
    /* Scale settings */
-   var $ScaleMinDivHeight = 20;				// Minimum height for scame divs
+   public $ScaleMinDivHeight = 20;				// Minimum height for scame divs
 
    /* Font properties */
-   var $FontName	= "fonts/GeosansLight.ttf";	// Default font file
-   var $FontSize	= 12;				// Default font size
-   var $FontBox		= NULL;				// Return the bounding box of the last written string
-   var $FontColorR	= 0;				// Default color settings
-   var $FontColorG	= 0;				// Default color settings
-   var $FontColorB	= 0;				// Default color settings
-   var $FontColorA	= 100;				// Default transparency
+   public $FontName	= "fonts/GeosansLight.ttf";	// Default font file
+   public $FontSize	= 12;				// Default font size
+   public $FontBox		= NULL;				// Return the bounding box of the last written string
+   public $FontColorR	= 0;				// Default color settings
+   public $FontColorG	= 0;				// Default color settings
+   public $FontColorB	= 0;				// Default color settings
+   public $FontColorA	= 100;				// Default transparency
 
    /* Shadow properties */
-   var $Shadow		= FALSE;			// Turn shadows on or off
-   var $ShadowX		= NULL;				// X Offset of the shadow
-   var $ShadowY		= NULL;				// Y Offset of the shadow
-   var $ShadowR		= NULL;				// R component of the shadow
-   var $ShadowG		= NULL;				// G component of the shadow
-   var $ShadowB		= NULL;				// B component of the shadow
-   var $Shadowa		= NULL;				// Alpha level of the shadow
+   public $Shadow		= FALSE;			// Turn shadows on or off
+   public $ShadowX		= NULL;				// X Offset of the shadow
+   public $ShadowY		= NULL;				// Y Offset of the shadow
+   public $ShadowR		= NULL;				// R component of the shadow
+   public $ShadowG		= NULL;				// G component of the shadow
+   public $ShadowB		= NULL;				// B component of the shadow
+   public $Shadowa		= NULL;				// Alpha level of the shadow
 
    /* Image map */
-   var $ImageMap	= NULL;				// Aray containing the image map
-   var $ImageMapIndex	= "pChart";			// Name of the session array
-   var $ImageMapStorageMode = NULL;			// Save the current imagemap storage mode
-   var $ImageMapAutoDelete  = TRUE;			// Automatic deletion of the image map temp files
+   public $ImageMap	= NULL;				// Aray containing the image map
+   public $ImageMapIndex	= "pChart";			// Name of the session array
+   public $ImageMapStorageMode = NULL;			// Save the current imagemap storage mode
+   public $ImageMapAutoDelete  = TRUE;			// Automatic deletion of the image map temp files
 
    /* Data Set */
-   var $DataSet		= NULL;				// Attached dataset
+   public $DataSet		= NULL;				// Attached dataset
 
    /* Last generated chart info */
-   var $LastChartLayout	= CHART_LAST_LAYOUT_REGULAR;	// Last layout : regular or stacked
+   public $LastChartLayout	= CHART_LAST_LAYOUT_REGULAR;	// Last layout : regular or stacked
 
    /* Class constructor */
-   function pImage($XSize,$YSize,$DataSet=NULL,$TransparentBackground=FALSE)
+   function __construct($XSize,$YSize,$DataSet=NULL,$TransparentBackground=FALSE)
     {
      $this->TransparentBackground = $TransparentBackground;
 
@@ -107,7 +107,7 @@
     }
 
    /* Enable / Disable and set shadow properties */
-   function setShadow($Enabled=TRUE,$Format="")
+   function setShadow($Enabled=TRUE,$Format=[])
     {
      $X	    = isset($Format["X"]) ? $Format["X"] : 2;
      $Y	    = isset($Format["Y"]) ? $Format["Y"] : 2;
@@ -130,7 +130,7 @@
     {
      if ( $X2 < $X1 || $X1 == $X2 || $Y2 < $Y1 || $Y1 == $Y2 ) { return(-1); }
 
-     $this->GraphAreaX1 = $X1; $this->DataSet->Data["GraphArea"]["X1"] = $X1;
+     $this->GraphAreaX1 = $X1; $this->DataSet->Data["GraphArea"]["X1"] = $X1; //huere is a problem
      $this->GraphAreaY1 = $Y1; $this->DataSet->Data["GraphArea"]["Y1"] = $Y1;
      $this->GraphAreaX2 = $X2; $this->DataSet->Data["GraphArea"]["X2"] = $X2;
      $this->GraphAreaY2 = $Y2; $this->DataSet->Data["GraphArea"]["Y2"] = $Y2;
@@ -231,7 +231,7 @@
     }
 
    /* Set current font properties */
-   function setFontProperties($Format="")
+   function setFontProperties($Format=[])
     {
      $R		= isset($Format["R"]) ? $Format["R"] : -1;
      $G		= isset($Format["G"]) ? $Format["G"] : -1;
@@ -255,8 +255,8 @@
    /* Returns the 1st decimal values (used to correct AA bugs) */
    function getFirstDecimal($Value)
     {
-     $Values = preg_split("/\./",$Value);
-     if ( isset($Values[1]) ) { return(substr($Values[1],0,1)); } else { return(0); }
+      $Values = explode(".", $Value); //used to be preg_string()
+      if ( isset($Values[1]) ) { return(substr($Values[1],0,1)); } else { return(0); }
     }
 
    /* Attach a dataset to your pChart Object */
@@ -320,7 +320,7 @@
     {
      if ( !isset($this->DataSet->Data["Series"][$SerieName]) ) { return(-1); }
 
-     $Result = "";
+     $Result = [];
      foreach($this->DataSet->Data["Series"][$SerieName]["Data"] as $Key => $Value)
       { if ( $Value != VOID && isset($Values[$Key]) ) { $Result[] = $Values[$Key]; } }
      return($Result);
@@ -343,7 +343,7 @@
       }
      elseif( $this->ImageMapStorageMode == IMAGE_MAP_STORAGE_FILE )
       {
-       $TempArray = "";
+       $TempArray = [];
        $Handle    = @fopen($this->ImageMapStorageFolder."/".$this->ImageMapFileName.".map", "r");
        if ($Handle)
         {
@@ -381,7 +381,7 @@
       }
      elseif( $this->ImageMapStorageMode == IMAGE_MAP_STORAGE_FILE )
       {
-       $TempArray = "";
+       $TempArray = [];
        $Handle    = @fopen($this->ImageMapStorageFolder."/".$this->ImageMapFileName.".map", "r");
        if ($Handle)
         {
@@ -445,13 +445,13 @@
    /* Reverse an array of points */
    function reversePlots($Plots)
     {
-     $Result = "";
+     $Result = [];
      for($i=count($Plots)-2;$i>=0;$i=$i-2) { $Result[] = $Plots[$i]; $Result[] = $Plots[$i+1]; }
      return($Result);
     }
 
    /* Mirror Effect */
-   function drawAreaMirror($X,$Y,$Width,$Height,$Format="")
+   function drawAreaMirror($X,$Y,$Width,$Height,$Format=[])
     {
      $StartAlpha	= isset($Format["StartAlpha"]) ? $Format["StartAlpha"] : 80;
      $EndAlpha		= isset($Format["EndAlpha"]) ? $Format["EndAlpha"] : 0;

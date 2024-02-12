@@ -16,12 +16,12 @@
  /* pData class definition */
  class pCache
   {
-   var $CacheFolder;
-   var $CacheIndex;
-   var $CacheDB;
+   public $CacheFolder;
+   public $CacheIndex;
+   public $CacheDB;
 
    /* Class creator */
-   function pCache($Settings="")
+   function __construct($Settings=[])
     {
      $CacheFolder	= isset($Settings["CacheFolder"]) ? $Settings["CacheFolder"] : "cache";
      $CacheIndex	= isset($Settings["CacheIndex"]) ? $Settings["CacheIndex"] : "index.db";
@@ -127,7 +127,7 @@
        $Entry    = fgets($IndexHandle, 4096);
        $Entry    = str_replace("\r","",$Entry);
        $Entry    = str_replace("\n","",$Entry);
-       $Settings = preg_split("/,/",$Entry);
+       $Settings = explode(",",$Entry); //used to be preg_split()
 
        if ( $Entry != "" )
         {
@@ -177,7 +177,7 @@
        $Entry = fgets($Handle, 4096);
        if ( $Entry != "" )
         {
-         $Settings = preg_split("/,/",$Entry);
+         $Settings = explode(",",$Entry); //used to be preg_split()
          $PicID    = $Settings[0];
          if ( $PicID == $ID )
           {

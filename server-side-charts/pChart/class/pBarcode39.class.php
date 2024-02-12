@@ -16,18 +16,18 @@
  /* pData class definition */
  class pBarcode39
   {
-   var $Codes;
-   var $Reverse;
-   var $Result;
-   var $pChartObject;
-   var $CRC;
-   var $MOD43;
+   public $Codes;
+   public $Reverse;
+   public $Result;
+   public $pChartObject;
+   public $CRC;
+   public $MOD43;
 
    /* Class creator */
-   function pBarcode39($BasePath="",$EnableMOD43=FALSE)
+   function __construct($BasePath="",$EnableMOD43=FALSE)
     {
      $this->MOD43  = $EnableMOD43;
-     $this->Codes   = "";
+     $this->Codes   = [];
      $this->Reverse = "";
 
      $FileHandle = @fopen($BasePath."data/39.db", "r");
@@ -39,7 +39,7 @@
        $Buffer = fgets($FileHandle,4096);
        $Buffer = str_replace(chr(10),"",$Buffer);
        $Buffer = str_replace(chr(13),"",$Buffer);
-       $Values = preg_split("/;/",$Buffer);
+       $Values = explode(";",$Buffer); //used to be preg_split()
 
        $this->Codes[$Values[0]] = $Values[1];
       }
@@ -47,7 +47,7 @@
     }
 
    /* Return the projected size of a barcode */
-   function getSize($TextString,$Format="")
+   function getSize($TextString,$Format=[])
     {
      $Angle		= isset($Format["Angle"]) ? $Format["Angle"] : 0;
      $ShowLegend	= isset($Format["ShowLegend"]) ? $Format["ShowLegend"] : FALSE;
@@ -105,7 +105,7 @@
     }
 
    /* Create the encoded string */
-   function draw($Object,$Value,$X,$Y,$Format="")
+   function draw($Object,$Value,$X,$Y,$Format=[])
     {
      $this->pChartObject = $Object;
 

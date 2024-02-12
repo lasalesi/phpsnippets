@@ -16,17 +16,17 @@
  /* pData class definition */
  class pBarcode128
   {
-   var $Codes;
-   var $Reverse;
-   var $Result;
-   var $pChartObject;
-   var $CRC;
+   public $Codes;
+   public $Reverse;
+   public $Result;
+   public $pChartObject;
+   public $CRC;
 
    /* Class creator */
-   function pBarcode128($BasePath="")
+   function __construct($BasePath="")
     {
-     $this->Codes   = "";
-     $this->Reverse = "";
+     $this->Codes   = [];
+     $this->Reverse = [];
 
      $FileHandle = @fopen($BasePath."data/128B.db", "r");
 
@@ -37,7 +37,7 @@
        $Buffer = fgets($FileHandle,4096);
        $Buffer = str_replace(chr(10),"",$Buffer);
        $Buffer = str_replace(chr(13),"",$Buffer);
-       $Values = preg_split("/;/",$Buffer);
+       $Values = explode(";",$Buffer); //used to be preg_split()
 
        $this->Codes[$Values[1]]["ID"]     = $Values[0];
        $this->Codes[$Values[1]]["Code"]   = $Values[2];
@@ -48,7 +48,7 @@
     }
 
    /* Return the projected size of a barcode */
-   function getSize($TextString,$Format="")
+   function getSize($TextString,$Format=[])
     {
      $Angle		= isset($Format["Angle"]) ? $Format["Angle"] : 0;
      $ShowLegend	= isset($Format["ShowLegend"]) ? $Format["ShowLegend"] : FALSE;
@@ -76,7 +76,7 @@
      return(array("Width"=>$AreaWidth,"Height"=>$AreaHeight));
     }
 
-   function encode128($Value,$Format="")
+   function encode128($Value,$Format=[])
     {
      $this->Result  = "11010010000";
      $this->CRC     = 104;
@@ -101,7 +101,7 @@
     }
 
    /* Create the encoded string */
-   function draw($Object,$Value,$X,$Y,$Format="")
+   function draw($Object,$Value,$X,$Y,$Format=[])
     {
      $this->pChartObject = $Object;
 
